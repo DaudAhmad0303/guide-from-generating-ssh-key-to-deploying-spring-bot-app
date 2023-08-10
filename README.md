@@ -150,11 +150,104 @@ Since, the SSH keys has been copied to the host machine. Now we'll ry connecting
 ```
 ssh root@N.N.N.N
 ```
-Here, 'N' is the number showing your ip address quadrants. And that's it, we're done with generating SSH and connecting with the host machine.
+Here, `N` is the number showing your ip address quadrants. So the output si like:
+
+```
+Welcome to Ubuntu 22.04.2 LTS (GNU/Linux 5.15.0-72-generic aarch64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Thu Aug 10 10:22:23 AM UTC 2023
+
+  System load:  0.0               Processes:             118
+  Usage of /:   6.1% of 37.23GB   Users logged in:       0
+  Memory usage: 4%                IPv4 address for eth0: N.N.N.N
+  Swap usage:   0%                IPv6 address for eth0: n:n:n:n::n
 
 
+Expanded Security Maintenance for Applications is not enabled.
+
+0 updates can be applied immediately.
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
 
 
+The list of available updates is more than a week old.
+To check for new updates run: sudo apt update
+
+Last login: Thu Aug 10 10:13:39 2023 from 39.42.213.154
+root@ubuntu-4gb-fsn1-2:~#
+```
+We can use simply `exit` command to logout from the host machine and close the connection. And that's it, we're done with generating SSH and connecting with the host machine.
+
+---
+### Configuring SSH Key on Ubuntu to disable password-based login:
+#### 1. Open ssh config file and apply modification
+In order to disable the password-enabled login method, open the `sshd_config` file in the client machine using nano command for text editing:
+```
+sudo nano /etc/ssh/sshd_config
+```
+File Area to modify:
+```
+    . . .
+    . . .
+    . . .
+# Don't read the user's ~/.rhosts and ~/.shosts files
+#IgnoreRhosts yes
+
+# To disable tunneled clear text passwords, change to no here!
+PasswordAuthentication yes
+#PermitEmptyPasswords no
+
+# Change to yes to enable challenge-response passwords (beware issues with
+# some PAM modules and threads)
+KbdInteractiveAuthentication no
+
+# Kerberos options
+#KerberosAuthentication no
+    . . .
+    . . .
+    . . .
+```
+In the nano text editor file text find the `PasswordAuthentication` line and change its no. After that save and exit from the file.
+
+#### 2. Reload the service of SSH
+To reload the service of SSH, use `systemctl` command:
+```
+sudo systemctl restart ssh
+```
+By hitting enter, nothing will happen and it will reload the service of SSh.
+
+#### 3. Check status of SSH
+We'll use `systemctl` command to check status of SSH:
+```
+sudo systemctl status ssh
+```
+Output:
+```
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: enabled)
+     Active: active (running) since Thu 2023-08-10 15:31:54 PKT; 1min 17s ago
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+    Process: 131820 ExecStartPre=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)
+   Main PID: 131823 (sshd)
+      Tasks: 1 (limit: 18777)
+     Memory: 1.7M
+        CPU: 30ms
+     CGroup: /system.slice/ssh.service
+             └─131823 "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups"
+
+Aug 10 15:31:54 shahid-Latitude-3520 systemd[1]: Starting OpenBSD Secure Shell server...
+Aug 10 15:31:54 shahid-Latitude-3520 sshd[131823]: Server listening on 0.0.0.0 port 22.
+Aug 10 15:31:54 shahid-Latitude-3520 sshd[131823]: Server listening on :: port 22.
+Aug 10 15:31:54 shahid-Latitude-3520 systemd[1]: Started OpenBSD Secure Shell server.
+```
+As it can be seen that the SSH service is running absolutly fine.
+---
 
 
 
