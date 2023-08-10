@@ -78,7 +78,79 @@ Firewall reloaded
 
 And we're done with enabling SSH on ubuntu.
 
-###
+---
+### Generating SSH Key on Ubuntu step by step:
+
+#### 1. Checking whether the SSH Key already generated
+To verify, whether you previously generated any SSH Key, try searching for it using following command:
+```
+ls -l ~/.ssh/id_*.pub
+```
+If the results of the above command are similar to the following output, then jump to **this step** :
+
+```
+-rw-r--r-- 1 shahid shahid 581 Oct 25  2022 /home/shahid/.ssh/id_rsa.pub
+```
+Otherwise, for something similar to the following out proceed, then keep walking with me.
+
+```
+ls: cannot aceess '/home/<username>/.ssh/id_*.pub': No such file or directory
+```
+
+#### 2. Generate SSH Key
+Considering, we don't have any SSH key generated, So we will generate the SSH key on the client machine using the following commnd:
+```
+ssh-keygen
+```
+Output:
+```
+Generating public/private rsa key pai.
+Enter file in which to save the key(/home/<username>/.ssh/id_rsa):
+Created directory '/home<username>/.ssh'.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/<username>/.ssh/id_rsa
+Your public key has been saved in /home/<username>/.ssh/id_rsa.pub
+The key fingerprint is:
+    . . .
+    . . .
+    . . .
+    . . .
+
+
+```
+After running previous command, first it will ask the user to enter some direextory where you want to store the SSH keys, and if we hit "enter" key withoout typing anything, then it will store the SSh keys on the default path which is displayed in next line. Secondly, it will ask you to enter a passphrase and re-type it again to confirm the passphrase, the passphrase is used to provide more security. But we'll disable this password. As this cause a security breach as well.
+
+#### 3. Verify key generation
+Next, we'll verify the generation of SSh keys by running following command:
+```
+ls ~/.ssh/id_*
+```
+It will show the SSH keys file as follows:
+```
+/home/shahid/.ssh/id_rsa  /home/shahid/.ssh/id_rsa.pub
+```
+
+#### 4. Copy SSH keys on host machine
+To copy the SSH keys on the machine to which we want to connect remotely(host). For this, we should know the IP address as well as the username of that machine. For the first time, we'll have the user name "remote" and the ip address is "N.N.N.N". So we'll copy is on host use following command:
+```
+ssh-copy-id remote@N.N.N.N
+```
+Output will be like:
+```
+Number of key(s) added: 1
+
+Now try logging into the machine, with:   "ssh 'root@N.N.N.N'"
+and check to make sure that only the key(s) you wanted were added.
+```
+I may ask you enter the password of the remote(host) machine, enter your password to proceed.
+
+#### 5. Connect with machine
+Since, the SSH keys has been copied to the host machine. Now we'll ry connecting with the machine using following command:
+```
+ssh root@N.N.N.N
+```
+Here, 'N' is the number showing your ip address quadrants. And that's it, we're done with generating SSH and connecting with the host machine.
 
 
 
@@ -88,3 +160,9 @@ And we're done with enabling SSH on ubuntu.
 
 
 
+
+
+
+
+
+----
