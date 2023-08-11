@@ -11,7 +11,7 @@ To connect to the authorized client machine, we generate the SSH keys which are 
 ### Enable SSH on Ubuntu
 
 #### 1. Install open-ssh server
-To install openssh-server run the following command in the terminal. Open terminal by shortcut command `ctrl + alt + T`.
+To install openssh-server run the following command in the terminal. Open the terminal by shortcut command `ctrl + alt + T`.
 ```
 sudo apt install openssh-server -y
 ```
@@ -33,7 +33,7 @@ The following NEW packages will be installed:
 ```
 
 #### 2. Checking Status of open-ssh server
-When the installation done, try checking the status of the openssh-server using `systemctl` command:
+When the installation is done, try checking the status of the openssh-server using `systemctl` command:
 ```
 sudo systemctl status ssh
 ```
@@ -76,13 +76,14 @@ Firewall is active and enabled on system startup
 Firewall reloaded
 ```
 
-And we're done with enabling SSH on ubuntu.
+And we're done with enabling SSH on Ubuntu.
 
 ---
+
 ### Generating SSH Key on Ubuntu step by step:
 
 #### 1. Checking whether the SSH Key already generated
-To verify, whether you previously generated any SSH Key, try searching for it using following command:
+To verify, whether you previously generated any SSH Key, try searching for it using the following command:
 ```
 ls -l ~/.ssh/id_*.pub
 ```
@@ -91,14 +92,14 @@ If the results of the above command are similar to the following output, then ju
 ```
 -rw-r--r-- 1 shahid shahid 581 Oct 25  2022 /home/shahid/.ssh/id_rsa.pub
 ```
-Otherwise, for something similar to the following out proceed, then keep walking with me.
+Otherwise, for something similar to the following proceed, then keep walking with me.
 
 ```
 ls: cannot aceess '/home/<username>/.ssh/id_*.pub': No such file or directory
 ```
 
 #### 2. Generate SSH Key
-Considering, we don't have any SSH key generated, So we will generate the SSH key on the client machine using the following commnd:
+Considering, we don't have any SSH key generated, we will generate the SSH key on the client machine using the following command:
 ```
 ssh-keygen
 ```
@@ -116,13 +117,11 @@ The key fingerprint is:
     . . .
     . . .
     . . .
-
-
 ```
-After running previous command, first it will ask the user to enter some direextory where you want to store the SSH keys, and if we hit "enter" key withoout typing anything, then it will store the SSh keys on the default path which is displayed in next line. Secondly, it will ask you to enter a passphrase and re-type it again to confirm the passphrase, the passphrase is used to provide more security. But we'll disable this password. As this cause a security breach as well.
+After running the previous command, first, it will ask the user to enter some directory where you want to store the SSH keys, and if we hit the "enter" key without typing anything, then it will store the SSh keys on the default path which is displayed in next line. Secondly, it will ask you to enter a passphrase and re-type it again to confirm the passphrase, the passphrase is used to provide more security. But we'll disable this password. As this causes a security breach as well.
 
 #### 3. Verify key generation
-Next, we'll verify the generation of SSh keys by running following command:
+Next, we'll verify the generation of SSh keys by running the following command:
 ```
 ls ~/.ssh/id_*
 ```
@@ -133,21 +132,21 @@ It will show the SSH keys file as follows:
 <!----Send text in *.iid_rsa.pub file for Server registeration --->
 
 #### 4. Copy SSH keys on host machine <a name="copy-ssh-key-on-host-machine"></a>
-To copy the SSH keys on the machine to which we want to connect remotely(host). For this, we should know the IP address as well as the username of that machine. For the first time, we'll have the user name "remote" and the ip address is "N.N.N.N". So we'll copy is on host use following command:
+To copy the SSH keys on the machine to which we want to connect remotely(host). For this, we should know the IP address as well as the username of that machine. For the first time, we'll have the user name "remote" and the IP address is "N.N.N.N". So we'll copy it on the host using the following command:
 ```
 ssh-copy-id remote@N.N.N.N
 ```
-Output will be like:
+The output will be like this:
 ```
 Number of key(s) added: 1
 
 Now try logging into the machine, with:   "ssh 'root@N.N.N.N'"
 and check to make sure that only the key(s) you wanted were added.
 ```
-I may ask you enter the password of the remote(host) machine, and enter your password to proceed.
+I may ask you to enter the password of the remote(host) machine and enter your password to proceed.
 
 #### 5. Connect with machine
-Since, the SSH keys have been copied to the host machine. Now we'll try connecting with the machine using following command:
+Since the SSH keys have been copied to the host machine. Now we'll try connecting with the machine using the following command:
 ```
 ssh root@N.N.N.N
 ```
@@ -185,6 +184,7 @@ root@ubuntu-4gb-fsn1-2:~#
 We can use simply `exit` command to logout from the host machine and close the connection. And that's it, we're done with generating SSH and connecting with the host machine.
 
 ---
+
 ### Configuring SSH Key on Ubuntu to disable password-based login:
 #### 1. Open ssh config file and apply modification
 In order to disable the password-enabled login method, open the `sshd_config` file in the client machine using nano command for text editing:
@@ -223,7 +223,7 @@ sudo systemctl restart ssh
 By hitting enter, nothing will happen and it will reload the service of SSh.
 
 #### 3. Check status of SSH
-We'll use `systemctl` command to check status of SSH:
+We'll use `systemctl` command to check the status of SSH:
 ```
 sudo systemctl status ssh
 ```
@@ -247,15 +247,93 @@ Aug 10 15:31:54 shahid-Latitude-3520 sshd[131823]: Server listening on 0.0.0.0 p
 Aug 10 15:31:54 shahid-Latitude-3520 sshd[131823]: Server listening on :: port 22.
 Aug 10 15:31:54 shahid-Latitude-3520 systemd[1]: Started OpenBSD Secure Shell server.
 ```
-As it can be seen that the SSH service is running absolutly fine.
+As it can be seen that the SSH service is running absolutely fine.
+
 ---
 
+### Update Server Packages to the latest:
+#### 1. Update Packages
+To get all the updates on your server, try running the following two commands one after the other:
+```
+apt update
+```
+and
+```
+apt upgrade
+```
+Here, we don't need to use `sudo`, since we are a root user currently. We'll create a new Non-root user later on.
+After running these two commands, this will upgrade the server with a bulk of logs.
 
+#### 2. Reboot server:
+To apply the upgrades effectively, we need to reboot the server using the following command:
+```
+reboot now
+```
+This will reboot the server and close your connection with the server. Now the upgrades have been applied to the server.
+If the package for `reboot` is missing there, we can also install it using `apt install systemd-sysv` command.
 
+---
+### Create and Setup non-root user on Server
+Creating a new user with sudo permissions allows you to do administration tasks with elevated privileges only when necessary.
+#### 1. Logging to your server
+First login to your server using the following command:
+```
+ssh root@<your-server-ip-address>
+```
 
+#### 2. Adding new user
+Type the following command after logging in to your server to create a new user:
+```
+adduser <user-name-you-want>
+```
+replace the `<user-name-you-want>` with the name of the user you want to create. It can be any name and hit the `enter` button. I'm choosing daud
 
+Output:
 
+```
+Adding user `daud' ...
+Adding new group `daud' (1000) ...
+Adding new user `daud' (1000) with group `daud' ...
+Creating home directory `/home/daud' ...
+Copying files from `/etc/skel' ...
+New password: 
+Retype new password: 
+passwd: password updated successfully
+Changing the user information for daud
+Enter the new value, or press ENTER for the default
+	Full Name []: Daud Ahmad
+	Room Number []: 
+	Work Phone []: 
+	Home Phone []: 
+	Other []: 
+Is the information correct? [Y/n]
+```
+After hitting enter it will ask you to enter some password and re-type it. After that will ask you to enter some information for the user. You can as per your will. You may leave it as default as well by just hitting the `Enter` key.
 
+You can check the saved data using the following command, you need to replace `daud` with the name of user:
+```
+cat /etc/passwd | grep <daud>
+```
+#### 3. Add newly created user to the Sudoers
+To add the user to the `sudo group` user `usermod` command as follows:
+```
+usermod -aG sudo <daud>
+```
+Now, we can verify the groups of the user using following:
+```
+id <daud>
+```
+and
+```
+groups <daud>
+```
+now the user belongs to the primary and the sudo group.
+
+#### 4. Testing sudo Access
+We have created a normal user and added it to the `sudo` group, effectively granting it elevated privileges to run administrative tasks. To test its ability to execute the sudo privileged commands try running the following command to switch to new user:
+```
+su - <daud>
+```
 
 
 
