@@ -465,7 +465,7 @@ sudo apt-get install oracle-java17-installer oracle-java17-set-default;
 
 java -version;
 ```
-#### Set the Java Environment Variables on Ubuntu
+#### 3. Set the Java Environment Variables on Ubuntu
 ```
 sudo update-alternatives --config java
 ```
@@ -492,7 +492,28 @@ Output:
 /usr/lib/jvm/java-17-oracle
 ```
 
-
+### Install Maven
+Get System updates and upgade:
+```
+sudo apt update;
+sudo apt upgrade;
+```
+Now, install `Maven`:
+```
+sudo apt install maven -y
+```
+And, we're done with installing Maven:
+```
+mvn --version
+```
+Output:
+```
+Apache Maven 3.6.3
+Maven home: /usr/share/maven
+Java version: 17.0.6, vendor: Oracle Corporation, runtime: /usr/lib/jvm/java-17-oracle
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "5.15.0-78-generic", arch: "aarch64", family: "unix"
+```
 
 
 
