@@ -366,8 +366,8 @@ After entering password for the logged user. we will be able to view above files
 
 ---
 
-### Installing Packages of our need
-#### 1. Install Python Latest Version
+## Installing Packages of our need
+### Install Python Latest Version
 We're going to install Python's latest version. But we'll first try the following commands to install libraries and dependencies necessary to build Python:
 ```
 sudo apt update
@@ -412,7 +412,91 @@ Output:
 Python 3.11.3
 ```
 
-#### 2. Install JAVA-17
+### Install JAVA-17
+
+#### 1. Download and Install Oracle JAVA 17
+Use the following command to download Oracle JAVA 17 using `wget`:
+```
+wget https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.deb
+```
+and then this command to install Java:
+```
+sudo dpkg -i jdk-17_linux-x64_bin.deb
+```
+If your installations got broken, then head over to set 2, otherwise skip to step 3.
+
+#### 2. Install Dependencies
+Update the system using the following commands:
+```
+sudo apt-get update
+```
+```
+sudo apt-get clean
+```
+```
+sudo apt-get autoremove
+```
+```
+sudo apt --fix-broken install
+```
+Then install, JAVA
+```
+sudo dpkg -i jdk-17_linux-x64_bin.deb
+```
+Verify installation of JAVA using:
+```
+java --version
+```
+Output:
+```
+java 17.0.6 2023-01-17 LTS
+Java(TM) SE Runtime Environment (build 17.0.6+9-LTS-190)
+Java HotSpot(TM) 64-Bit Server VM (build 17.0.6+9-LTS-190, mixed mode, sharing)
+```
+
+#### Alternative Way of installing JAVA
+
+Following is the alternative way of installing JAVA in one go:
+```
+sudo apt update && sudo apt upgrade -y;
+sudo add-apt-repository ppa:linuxuprising/java -y;
+sudo apt update;
+sudo apt-get install oracle-java17-installer oracle-java17-set-default;
+
+java -version;
+```
+#### Set the Java Environment Variables on Ubuntu
+```
+sudo update-alternatives --config java
+```
+copy the path till “jdk-17” (i.e. `/usr/lib/jvm/jdk-17/`). Open Environment variable file using `nano`:
+```
+sudo nano /etc/environment/
+```
+
+Go to the Last line in the file and add:
+```
+JAVA_HOME=”/usr/lib/jvm/jdk-17/”
+```
+
+Now Load Environment variable using:
+```
+source /etc/environment/
+```
+Check `JAVA_HOME` variable:
+```
+echo $JAVA_HOME
+```
+Output:
+```
+/usr/lib/jvm/java-17-oracle
+```
+
+
+
+
+
+
 
 
 
