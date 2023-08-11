@@ -334,6 +334,88 @@ We have created a normal user and added it to the `sudo` group, effectively gran
 ```
 su - <daud>
 ```
+Output:
+```
+<daud>@ubuntu-4gb-fsn1-2:~$
+```
+Now, we've switched to the new user. Let's try running some sudo privileged command by prepending `sudo` with the command. For instance, try listing down all the content of directory `/root`.
+```
+sudo ls -la /root
+```
+Output:
+```
+[sudo] password for <daud>: 
+total 36
+drwx------  5 root root 4096 Aug 10 13:56 .
+drwxr-xr-x 18 root root 4096 Aug 10 14:53 ..
+-rw-------  1 root root  492 Aug 11 06:32 .bash_history
+-rw-r--r--  1 root root 3106 Oct 15  2021 .bashrc
+drwx------  2 root root 4096 May 23 12:04 .cache
+-rw-r--r--  1 root root    0 May 23 12:06 .cloud-locale-test.skip
+drwxr-xr-x  3 root root 4096 Aug 10 13:56 .local
+-rw-r--r--  1 root root  161 Jul  9  2019 .profile
+drwx------  2 root root 4096 Aug 10 10:14 .ssh
+-rw-------  1 root root  881 Aug 10 10:14 .viminfo
+```
+After entering password for the logged user. we will be able to view above files. Finally, we've created a `sudo` access user who can access `root` privileges by using the `sudo` command prepended.
+
+---
+
+### Installing Packages of our need
+#### 1. Install Python Latest Version
+We're going to install Python's latest version. But we'll first try the following commands to install libraries and dependencies necessary to build Python:
+```
+sudo apt update
+```
+```
+sudo apt upgrade
+```
+```
+sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev
+```
+Now, install Python's latest release source code using the `wget` command.
+```
+wget https://www.python.org/ftp/python/3.11.3/Python-3.11.3.tgz
+```
+This will install the Python file as _archived_ file on our server. Extract the archive using the following command:
+```
+tar -xf Python-3.11.3.tgz
+```
+
+Now move to the `Python-3.11.3` directory and run the `configure` command. This script performs a number of checks to make sure all of the dependencies are present in our system:
+```
+cd Python-3.11.3
+./configure --enable-optimizations
+```
+Now Start the build process, we can specify the number of cors with `-j` after checking our system cors with the command `nproc`:
+```
+make -j 12
+```
+This will take a bit of time and a lot of logs will be thrown to complete the build process. Now, install the Python binaries using this command:
+```
+sudo make altinstall
+```
+Here, `altinstall` command will overwrite the default system `python3` binary. 
+
+
+There we're, **Python3.11** has been installed. Your can verify it using following:
+```
+python3.11 --version
+```
+Output:
+```
+Python 3.11.3
+```
+
+#### 2. Install JAVA-17
+
+
+
+
+
+
+
+
 
 
 
