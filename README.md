@@ -647,7 +647,7 @@ After the new `mydb` database is created, connect to it.
 ```
 
 ## Running Spring Boot App in `Tmux`
-### Database Up
+### Does the Database is up
 Make sure our database is **up**, we can double-check it using the command:
 ```
 service postgresql status
