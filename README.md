@@ -1,7 +1,7 @@
 <!-- <details> -->
 <!-- <summary> -->
 <!-- <h2> -->
-Jump to a Section
+### Jump to a Section
 <!-- </h2> -->
 <!-- </summary> -->
  - [Generating and Configuring SSH Key on Server](#generating-and-configuring-ssh-key-on-server)
