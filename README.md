@@ -281,7 +281,7 @@ As it can be seen that the SSH service is running absolutely fine.
 
 ---
 
-## Update Server Packages to the latest:
+### Update Server Packages to the latest:
 #### 1. Update Packages
 To get all the updates on your server, try running the following two commands one after the other:
 ```
