@@ -17,6 +17,10 @@ Jump to a Section
 		- [3. Verify key generation](#3-verify-key-generation)
 		- [4. Copy SSH keys on host machine](#4-copy-ssh-keys-on-host-machine)
 		- [5. Connect with machine](#5-connect-with-machine)
+	- [Configuring SSH Key on Ubuntu to disable password-based login:](#configuring-ssh-key-on-ubuntu-to-disable-password-based-login)
+		- [1. Open ssh config file and apply modification](#1-open-ssh-config-file-and-apply-modification)
+		- [2. Reload the service of SSH](#2-reload-the-service-of-ssh)
+		- [3. Check status of SSH](#3-check-status-of-ssh)
 		- []()
 <!-- </details> -->
 <!-- ## Jump to a Section -->
