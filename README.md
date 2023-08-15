@@ -632,14 +632,40 @@ You are now connected to database `postgres` as user `postgres`.
 
 ### Create New Database
 You are now connected to your database server through psql command line tool with full access rights, so it’s time to create a new database.
-
+```
 CREATE DATABASE mydb;
-
+```
 After the new `mydb` database is created, connect to it.
-
+```
 \c mydb
+```
 
+## Running Spring Boot App in `Tmux`
+### Database Up
+Make sure our database is **up**, we can double-check it using the command:
+```
+service postgresql status
+```
+If there is some error, you can follow the previous steps. Make sure you have created the `database` specified in the `application.properties` file. You need to run the application first by specifing the value for `spring.jpa.hibernate.ddl-auto` = `create` and then all next time, it would be `update` or `validate`.
+### Create a `Tmux` Session
+```
+tmux new -s <tmux-session-name>
+```
+After typing above command and hitting `enter`, we'll enter the tmux session.
 
+### Running Spring Boot App
+Go to the directory of the Spring boot project, and run the following command:
+```
+mvn package
+```
+Then, on successful Build Creation:
+```
+mvn spring-boot:run
+```
+Our Spring Boot Application has started running on the IP address of our server. i.e.,
+```
+<IP-address:8080>
+```
 
 
 
