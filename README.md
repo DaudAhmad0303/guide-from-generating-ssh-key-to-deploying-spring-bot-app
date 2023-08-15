@@ -1,9 +1,10 @@
-<!-- <details> -->
-<!-- <summary> -->
-<!-- <h2> -->
-### Jump to a Section
-<!-- </h2> -->
-<!-- </summary> -->
+<details>
+<summary>
+<h2>
+Jump to a Section
+</h2>
+</summary>
+
  - [Generating and Configuring SSH Key on Server](#generating-and-configuring-ssh-key-on-server)
  	- [Intro of SSH](#intro-of-ssh)
   	- [Enable SSH on Ubuntu](#enable-ssh-on-ubuntu)
@@ -39,7 +40,8 @@
 	- [Install Maven](#install-maven)
  - [Getting started with tmux](#getting-started-with-tmux)
 	- [Basic tmux keybindings](#basic-tmux-keybindings)
-<!-- </details> -->
+</details>
+
 <!-- ## Jump to a Section -->
 
 
