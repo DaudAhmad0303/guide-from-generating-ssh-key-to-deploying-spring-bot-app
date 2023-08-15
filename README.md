@@ -515,8 +515,44 @@ Default locale: en_US, platform encoding: UTF-8
 OS name: "linux", version: "5.15.0-78-generic", arch: "aarch64", family: "unix"
 ```
 
+---
 
+### Getting started with `tmux`
 
+To start using tmux, type `tmux` on your terminal. This command launches a tmux server, creates a default session (number 0) with a single window, and attaches to it.
+```
+tmux
+```
+You can detach from your `tmux` session by pressing `Ctrl+B` then `D`. Tmux operates using a series of keybindings (keyboard shortcuts) triggered by pressing the "prefix" combination. By default, the prefix is `Ctrl+B`. After that, press `D` to detach from the current session.
+```
+[detached (from session 0)]
+```
+
+You're no longer attached to the session, but your long-running command executes safely in the background. You can list active tmux sessions with tmux ls:
+```
+tmux ls
+```
+
+#### Basic `tmux` keybindings
+Tmux provides several keybindings to execute commands quickly in a tmux session. Here are some of the most useful ones.
+
+First, create a new tmux session if you're not already in one. You can name your session by passing the parameter `-s {name}` to the `tmux new` command when creating a new session:
+
+```
+tmux new -s Session1
+```
+
+- `Ctrl+B D` — Detach from the current session.
+- `Ctrl+B %` — Split the window into two panes horizontally.
+- `Ctrl+B "` — Split the window into two panes vertically.
+- `Ctrl+B Arrow Key` (Left, Right, Up, Down) — Move between panes.
+- `Ctrl+B X` — Close pane.
+- `Ctrl+B C` — Create a new window.
+- `Ctrl+B N` or `P` — Move to the next or previous window.
+- `Ctrl+B 0 (1,2...)` — Move to a specific window by number.
+- `Ctrl+B :` — Enter the command line to type commands. Tab completion is available.
+- `Ctrl+B ?` — View all keybindings. Press Q to exit.
+- `Ctrl+B W` — Open a panel to navigate across windows in multiple sessions.
 
 
 
