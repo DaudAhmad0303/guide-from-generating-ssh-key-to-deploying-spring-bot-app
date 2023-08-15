@@ -13,9 +13,11 @@ Jump to a Section
 		- [4. Save the changes](#4-save-the-changes)
  	- [Generating SSH Key on Ubuntu step by step:](#generating-ssh-key-on-ubuntu-step-by-step)
 		- [1. Checking whether the SSH Key already generated](#1-checking-whether-the-ssh-key-already-generated)
- 		- [2. Generate SSH Key](2-generate-ssh-key)
+ 		- [2. Generate SSH Key](#2-generate-ssh-key)
 		- [3. Verify key generation](#3-verify-key-generation)
-		- [4. Copy SSH keys on host machine]()
+		- [4. Copy SSH keys on host machine](#4-copy-ssh-keys-on-host-machine)
+		- [5. Connect with machine](#5-connect-with-machine)
+		- []()
 <!-- </details> -->
 <!-- ## Jump to a Section -->
 
