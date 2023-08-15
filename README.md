@@ -56,7 +56,7 @@ Jump to a Section
 
 ---
 
-# Guide from generating SSH-key to deploying spring bot App on Tmux Server.
+# Guide from generating SSH-key to deploying spring bot App in Tmux Session and Tomcat server.
 
 ## Generating and Configuring SSH Key on Server
 
