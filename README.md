@@ -553,6 +553,7 @@ tmux new -s Session1
 - `Ctrl+B :` — Enter the command line to type commands. Tab completion is available.
 - `Ctrl+B ?` — View all keybindings. Press Q to exit.
 - `Ctrl+B W` — Open a panel to navigate across windows in multiple sessions.
+- `Ctrl+B ,` — Rename a panel window
 
 
 
