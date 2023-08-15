@@ -44,8 +44,11 @@ Jump to a Section
 	- [PostgreSQL Installation](#postgresql-installation)
 	- [Start PostgreSQL CommandLine Tool](#start-postgresql-commandline-tool)
 	- [Create New Database](#create-new-database)
-	- [Running Spring Boot App in Tmux](#running-spring-boot-app-in-tmux)
-	- []()
+ - [Running Spring Boot App in Tmux](#running-spring-boot-app-in-tmux)
+	- [Does the Database is up](#does-the-database-is-up)
+	- [Create a Tmux Session](#create-a-tmux-session)
+	- [Running Spring Boot App](#running-spring-boot-app)
+
 </details>
 
 <!-- ## Jump to a Section -->
