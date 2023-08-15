@@ -12,6 +12,10 @@ Jump to a Section
 		- [3. Allow Connection on ssh port](#3-allow-connection-on-ssh-port)
 		- [4. Save the changes](#4-save-the-changes)
  	- [Generating SSH Key on Ubuntu step by step:](#generating-ssh-key-on-ubuntu-step-by-step)
+		- [1. Checking whether the SSH Key already generated](#1-checking-whether-the-ssh-key-already-generated)
+ 		- [2. Generate SSH Key](2-generate-ssh-key)
+		- [3. Verify key generation](#3-verify-key-generation)
+		- [4. Copy SSH keys on host machine]()
 <!-- </details> -->
 <!-- ## Jump to a Section -->
 
@@ -151,7 +155,7 @@ It will show the SSH keys file as follows:
 ```
 <!----Send text in *.iid_rsa.pub file for Server registeration --->
 
-#### 4. Copy SSH keys on host machine <a name="copy-ssh-key-on-host-machine"></a>
+#### 4. Copy SSH keys on host machine<a name="copy-ssh-key-on-host-machine"></a>
 To copy the SSH keys on the machine to which we want to connect remotely(host). For this, we should know the IP address as well as the username of that machine. For the first time, we'll have the user name "remote" and the IP address is "N.N.N.N". So we'll copy it on the host using the following command:
 ```
 ssh-copy-id remote@N.N.N.N
