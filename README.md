@@ -24,7 +24,21 @@ Jump to a Section
 	- [Update Server Packages to the latest:](#update-server-packages-to-the-latest)
 		- [1. Update Packages](#1-update-packages)
 		- [2. Reboot server:](#2-reboot-server)
-	- []()
+ - [Create and Setup non-root user on Server](#create-and-setup-non-root-user-on-server)
+	- [1. Logging to your server](#1-logging-to-your-server)
+	- [2. Adding new user](#2-adding-new-user)
+	- [3. Add newly created user to the Sudoers](#3-add-newly-created-user-to-the-sudoers)
+	- [4. Testing sudo Access](#4-testing-sudo-access)
+ - [Installing Packages of our need](#installing-packages-of-our-need)
+	- [Install Python Latest Version](#install-python-latest-version)
+	- [Install JAVA-17](#install-java-17)
+		- [1. Download and Install Oracle JAVA 17](#1-download-and-install-oracle-java-17)
+		- [2. Install Dependencies](#2-install-dependencies)
+		- [Alternative Way of installing JAVA](#alternative-way-of-installing-java)
+		- [3. Set the Java Environment Variables on Ubuntu](#3-set-the-java-environment-variables-on-ubuntu)
+	- [Install Maven](#install-maven)
+ - [Getting started with tmux](#getting-started-with-tmux)
+	- [Basic tmux keybindings](#basic-tmux-keybindings)
 <!-- </details> -->
 <!-- ## Jump to a Section -->
 
@@ -545,7 +559,7 @@ OS name: "linux", version: "5.15.0-78-generic", arch: "aarch64", family: "unix"
 
 ---
 
-### Getting started with `tmux`
+## Getting started with `tmux`
 
 To start using tmux, type `tmux` on your terminal. This command launches a tmux server, creates a default session (number 0) with a single window, and attaches to it.
 ```
@@ -561,7 +575,7 @@ You're no longer attached to the session, but your long-running command executes
 tmux ls
 ```
 
-#### Basic `tmux` keybindings
+### Basic `tmux` keybindings
 Tmux provides several keybindings to execute commands quickly in a tmux session. Here are some of the most useful ones.
 
 First, create a new tmux session if you're not already in one. You can name your session by passing the parameter `-s {name}` to the `tmux new` command when creating a new session:
