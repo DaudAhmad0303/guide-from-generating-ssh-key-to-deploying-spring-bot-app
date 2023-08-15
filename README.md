@@ -600,11 +600,44 @@ tmux new -s Session1
 - `Ctrl+B ,` — Rename a panel window
 - `Ctrl+B [` — Switch to scroll view, Press `Q` to exit scrolling.
 
+## Database Setup
+### PostgreSQL Installation
+For our project, we need to have a working connection with a `postgresql` database. Here're couple of commands to install postgresql on Ubuntu:
+```
+sudo apt install wget ca-certificates;
+sudo apt update;
+apt install postgresql postgresql-contrib;
 
+service postgresql status;
 
+```
+For detailed configuration of the `PostgreSQL` database, one can follow along [this article](https://www.cherryservers.com/blog/how-to-install-and-setup-postgresql-server-on-ubuntu-20-04).
 
+### Start PostgreSQL CommandLine Tool
+When you install PostgreSQL a default admin user `postgres` is created by the default. You must use it to log-in to your PostgreSQL database for the first time.
 
+A `psql` command-line client tool is used to interact with the database engine. You should invoke it as a `postgres` user to start an interactive session with your local database.
 
+```
+sudo -u postgres psql
+```
+
+In addition to creating a postgres admin user for you, PostgreSQL installation also creates a default database named “postgres” and connects you to it automatically when you first launch psql.
+
+After first launching psql, you may check the details of your connection by typing `\conninfo` into the interpreter.
+```
+\conninfo
+```
+You are now connected to database `postgres` as user `postgres`.
+
+### Create New Database
+You are now connected to your database server through psql command line tool with full access rights, so it’s time to create a new database.
+
+CREATE DATABASE mydb;
+
+After the new `mydb` database is created, connect to it.
+
+\c mydb
 
 
 
