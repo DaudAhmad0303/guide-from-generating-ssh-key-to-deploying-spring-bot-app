@@ -40,6 +40,12 @@ Jump to a Section
 	- [Install Maven](#install-maven)
  - [Getting started with tmux](#getting-started-with-tmux)
 	- [Basic tmux keybindings](#basic-tmux-keybindings)
+ - [Database Setup](#database-setup)
+	- [PostgreSQL Installation](#postgresql-installation)
+	- [Start PostgreSQL CommandLine Tool](#start-postgresql-commandline-tool)
+	- [Create New Database](#create-new-database)
+	- [Running Spring Boot App in Tmux](#running-spring-boot-app-in-tmux)
+	- []()
 </details>
 
 <!-- ## Jump to a Section -->
