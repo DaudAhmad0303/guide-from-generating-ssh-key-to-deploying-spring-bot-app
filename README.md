@@ -6,6 +6,12 @@ Jump to a Section
 <!-- </summary> -->
  - [Generating and Configuring SSH Key on Server](#generating-and-configuring-ssh-key-on-server)
  	- [Intro of SSH](#intro-of-ssh)
+  	- [Enable SSH on Ubuntu](#enable-ssh-on-ubuntu)
+   		- [1. Install open-ssh server](#1-install-open-ssh-server)
+		- [2. Checking Status of open-ssh server](#2-checking-status-of-open-ssh-server)
+		- [3. Allow Connection on ssh port](#3-allow-connection-on-ssh-port)
+		- [4. Save the changes](#4-save-the-changes)
+ 	- [Generating SSH Key on Ubuntu step by step:](#generating-ssh-key-on-ubuntu-step-by-step)
 <!-- </details> -->
 <!-- ## Jump to a Section -->
 
