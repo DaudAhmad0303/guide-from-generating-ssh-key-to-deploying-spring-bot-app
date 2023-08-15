@@ -21,7 +21,10 @@ Jump to a Section
 		- [1. Open ssh config file and apply modification](#1-open-ssh-config-file-and-apply-modification)
 		- [2. Reload the service of SSH](#2-reload-the-service-of-ssh)
 		- [3. Check status of SSH](#3-check-status-of-ssh)
-		- []()
+	- [Update Server Packages to the latest:](#update-server-packages-to-the-latest)
+		- [1. Update Packages](#1-update-packages)
+		- [2. Reboot server:](#2-reboot-server)
+	- []()
 <!-- </details> -->
 <!-- ## Jump to a Section -->
 
@@ -303,15 +306,15 @@ This will reboot the server and close your connection with the server. Now the u
 If the package for `reboot` is missing there, we can also install it using `apt install systemd-sysv` command.
 
 ---
-### Create and Setup non-root user on Server
+## Create and Setup non-root user on Server
 Creating a new user with sudo permissions allows you to do administration tasks with elevated privileges only when necessary.
-#### 1. Logging to your server
+### 1. Logging to your server
 First login to your server using the following command:
 ```
 ssh root@<your-server-ip-address>
 ```
 
-#### 2. Adding new user
+### 2. Adding new user
 Type the following command after logging in to your server to create a new user:
 ```
 adduser <user-name-you-want>
@@ -344,7 +347,7 @@ You can check the saved data using the following command, you need to replace `d
 ```
 cat /etc/passwd | grep <daud>
 ```
-#### 3. Add newly created user to the Sudoers
+### 3. Add newly created user to the Sudoers
 To add the user to the `sudo group` user `usermod` command as follows:
 ```
 usermod -aG sudo <daud>
@@ -359,7 +362,7 @@ groups <daud>
 ```
 now the user belongs to the primary and the sudo group.
 
-#### 4. Testing sudo Access
+### 4. Testing sudo Access
 We have created a normal user and added it to the `sudo` group, effectively granting it elevated privileges to run administrative tasks. To test its ability to execute the sudo privileged commands try running the following command to switch to new user:
 ```
 su - <daud>
