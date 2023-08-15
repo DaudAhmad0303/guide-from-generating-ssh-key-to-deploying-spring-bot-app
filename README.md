@@ -4,9 +4,8 @@
 Jump to a Section
 <!-- </h2> -->
 <!-- </summary> -->
-- [Generating and Configuring SSH Key on Server](#generating-and-configuring-ssh-key-on-server)
-	- [Intro of SSH](#intro-of-ssh)
-- 
+ - [Generating and Configuring SSH Key on Server](#generating-and-configuring-ssh-key-on-server)
+ 	- [Intro of SSH](#intro-of-ssh)
 <!-- </details> -->
 <!-- ## Jump to a Section -->
 
