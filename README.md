@@ -676,6 +676,246 @@ Our Spring Boot Application has started running on the IP address of our server.
 <IP-address:8080>
 ```
 
+---
+
+## Setup Tomcat and Deploying Spring Boot App in `Tomcat`
+### Setup and installation of `tomcat`
+#### 1. Update and upgrades
+Before starting installation of tomcat and other things on your server, do:
+```
+sudo apt update
+sudo apt upgrade
+```
+#### 2. Installation and setup JAVA
+Previously, we've installed JAVA here, you can follow these steps to install it. Make sure you set up the environment variable for `JAVA_HOME`, you can check it using:
+```
+echo $JAVA_HOME
+```
+#### 3. Create `tomcat` user
+For security, you should not use Tomcat without a unique user. This will make the install of Tomcat on Ubuntu easier. Create a new tomcat group that will run the service:
+```
+sudo groupadd tomcat
+```
+
+Now, the next procedure is to create a new tomcat user. Create user members of the Tomcat group with a home directory `opt/tomcat` for running the Tomcat service:
+```
+sudo useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat
+```
+#### 4. Download `tomcat`
+We need to download the tomcat `tar.gz` file from official website of [Apache Tomcat](https://tomcat.apache.org/download-90.cgi) and copy the link of core _**tar.gz**_ file under the Binary Distributions section. We can use `curl` command or `wget` to download the file. Since, we wouldn't need the file after extraction, so we'll move to the `/tmp` directory of the user.
+```
+cd /tmp
+```
+```
+curl -O https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.79/bin/apache-tomcat-9.0.79.tar.gz
+```
+after `curl -O` we can replace the copied url from the _Apache Tomcat_ website.
+
+#### 5. Update permissions of the installation directory
+We will install Tomcat to the `/opt/tomcat` directory. Create the directory, then extract the archive to that folder.
+```
+sudo mkdir /opt/tomcat
+```
+```
+sudo tar xzvf /tmp/apache-tomcat-9.0.*tar.gz -C /opt/tomcat --strip-components=1
+```
+Change to the directory where you unpacked the Tomcat.
+```
+cd /opt/tomcat
+```
+
+Now, give the Tomcat group ownership over the entire installation directory with the `chgrp` command:
+```
+sudo chgrp -R tomcat /opt/tomcat
+```
+Next, you need to give the Tomcat user access to the conf directory to view its contents and execute access to the directory itself:
+```
+sudo chmod -R g+r conf
+```
+
+```
+sudo chmod g+x conf
+```
+Make the Tomcat user the owner of the `web apps`, `work`, `temp`, and `logs` directories:
+
+```
+sudo chown -R tomcat webapps/ work/ temp/ logs/
+```
+
+#### 6. Creat systemd Unit File
+We will need to configure **systemd** service file of tomcat to run Tomcat as a service. For that, we need to setup `JAVA_HOME`.
+To look up `JAVA_HOME` location run this command
+```
+sudo update-java-alternatives -l
+```
+Output would be like:
+```
+java-1.8.0-openjdk-amd64       1081       /usr/lib/jvm/java-1.8.0-openjdk-amd64
+```
+Copy the path `/usr/lib/jvm/java-1.8.0-openjdk-amd64` somewhere. You will need this path to set `JAVA_HOME` later. In your system, `JAVA_HOME` can be different, so don’t worry.
+
+You need to configure `tomcat.service`. That resides in `/etc/systemd/system` directory. Run command
+```
+sudo nano /etc/systemd/system/tomcat.service
+```
+Most probably, You will get a empty file opening. You need to paste following inside:
+
+```
+[Unit]
+Description=Tomcat webs servlet container
+After=network.target
+
+[Service]
+Type=forking
+
+User=tomcat
+Group=tomcat
+
+Environment="JAVA_HOME=/usr/lib/jvm/java-17-openjdk-arm64"
+Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"
+
+Environment="CATALINA_BASE=/opt/tomcat"
+Environment="CATALINA_HOME=/opt/tomcat"
+Environment="CATALINA_PID=/opt/tomcat/temp/tomcat.pid"
+Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
+
+PIDFile=/opt/tomcat/temp/tomcat.pid
+
+UMask=0007
+RestartSec=10
+Restart=always
+
+ExecStart=/opt/tomcat/bin/startup.sh
+ExecStop=/opt/tomcat/bin/shutdown.sh
+
+[Install]
+WantedBy=multi-user.target
+```
+You have to replace the `JAVA_HOME` path with the your systems related. In some cases, you need to append `/jre` after the path of `JAVA_HOME`. You can try it out.
+
+For saving this service click `Ctrl+x` then `Shift+y` then Enter.
+
+#### 7. Run the `tomcat` service
+
+Notify the system that you have created a new file by issuing the following command in the command line:
+```
+sudo systemctl daemon-reload
+```
+
+We can directly try running tomcat service, if some problem araise, it can be seen easily.
+```
+sudo /opt/tomcat/bin/startup.sh run
+```
+```
+sudo /opt/tomcat/bin/shutdown.sh run
+```
+But, the actual way of running the `tomcat` service is:
+
+```
+sudo systemctl start tomcat
+```
+Or we can try out to restart the service:
+
+```
+sudo systemctl restart tomcat
+```
+To check tomcat status whether it is running or not, run command:
+
+```
+sudo systemctl status tomcat
+```
+Another command is:
+```
+sudo systemctl status tomcat.service
+```
+To Enabel service (optional):
+```
+sudo systemctl enable --now tomcat
+```
+
+Successful Output:
+```
+● tomcat.service - Tomcat webs servlet container
+     Loaded: loaded (/etc/systemd/system/tomcat.service; enabled; vendor preset: enabled)
+     Active: active (running) since Wed 2023-08-16 17:48:07 UTC; 1h 57min ago
+    Process: 151788 ExecStart=/opt/tomcat/bin/startup.sh (code=exited, status=0/SUCCESS)
+   Main PID: 151795 (java)
+      Tasks: 32 (limit: 4406)
+     Memory: 308.9M
+        CPU: 19.880s
+     CGroup: /system.slice/tomcat.service
+             └─151795 /usr/lib/jvm/java-17-openjdk-arm64/bin/java -Djava.util.logging.config.file=/opt/tomcat/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djava.awt>
+
+Aug 16 17:48:07 ubuntu-4gb-fsn1-2 systemd[1]: Starting Tomcat webs servlet container...
+Aug 16 17:48:07 ubuntu-4gb-fsn1-2 startup.sh[151788]: Tomcat started.
+Aug 16 17:48:07 ubuntu-4gb-fsn1-2 systemd[1]: Started Tomcat webs servlet container.
+```
+
+#### 8. Configuring the `Tomcat` Web Management Interface
+In order to use the manager web app that comes with Tomcat, you must add a login credential to our Tomcat server. We will do this by editing the `tomcat-users.xml` file. You have to add a user who can access the `manager-gui`, `admin-gui` and `manager-script`. To open `tomcat-users.xml` run command
+
+```
+sudo nano /opt/tomcat/conf/tomcat-users.xml
+```
+
+When the `xml file` is opened you need to add the following line:
+```
+<role rolename="admin"/>
+<role rolename="admin-gui"/>
+<role rolename="manager"/>
+<role rolename="manager-gui"/>
+<role rolename="manager-script"/>
+
+<user username="admin" password="password" roles="admin,manager,manager-gui,admin-gui,manager-script"/>
+```
+inside the tag:
+```
+<tomcat-users . . .>
+  .....
+</tomcat-users>
+```
+Now save this `xml file` click `Ctrl+x` then `Shift+y` then `Enter`.
+
+By default, newer versions of Tomcat restrict access to the Manager apps to connections coming from the server itself (throw **403** error sometimes). Since you are installing on a remote machine, you will probably want to remove or alter this restriction. To change the IP address restrictions on these, open the appropriate context.xml files. Run the below command to open `context.xml` file of `mnager`.
+```
+sudo nano /opt/tomcat/webapps/manager/META-INF/context.xml
+```
+Inside file, you will see somewhere:
+```
+<Context antiResourceLocking="false" privileged="true" >
+  <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+         allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />
+</Context>
+```
+You need to comment out the tag section of `<Valve>`, i.e., `<!--- ` before the starting tag and ` -->` after the closing tag.
+
+```
+<Context antiResourceLocking="false" privileged="true" >
+  <!--<Valve className="org.apache.catalina.valves.RemoteAddrValve"
+         allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />-->
+</Context>
+```
+Similarly, We need to do same thing for `Host-manager` by opening file:
+```
+sudo nano /opt/tomcat/webapps/host-manager/META-INF/context.xml
+```
+Here, do the same thing to comment out the tag section of `<valve>` and then save the file.
+
+After that `restart` the service to take effects:
+```
+sudo systemctl restart tomcat
+```
+To access the Web Managment Interface, enter following url in browser:
+```
+http://<domain-name or IP-address>:8080/
+```
+and you will see following interface:
+
+![Screenshot from 2023-08-17 01-21-33](https://github.com/DaudAhmad0303/guide-from-generating-ssh-key-to-deploying-spring-bot-app/assets/73556387/93df8365-718c-4b4a-b3e7-862835ae74f1)
+
+You can Access **Server Status**, **Manager App**, **Host Manager** by entering the `username` and password set in `tomcat-users.xml` file, previously. We'll need to get in `Manager App` to deploy Spring Boot Application.
+
+
 
 
 
