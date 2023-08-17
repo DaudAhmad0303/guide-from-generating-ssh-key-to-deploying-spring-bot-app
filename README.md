@@ -698,20 +698,20 @@ Another way out is running app from project root directory:
 
 ---
 
-## Setup Tomcat and Deploying Spring Boot App in `Tomcat`
+## Setup `Tomcat` and Deploying Spring Boot App in `Tomcat`
 ### Setup and installation of `tomcat`
 #### 1. Update and upgrades
-Before starting installation of tomcat and other things on your server, do:
+Before starting the installation of Tomcat and other things on your server, do:
 ```
 sudo apt update
 sudo apt upgrade
 ```
-#### 2. Installation and setup JAVA
+#### 2. Installation and setup of JAVA
 Previously, we've installed JAVA here, you can follow these steps to install it. Make sure you set up the environment variable for `JAVA_HOME`, you can check it using:
 ```
 echo $JAVA_HOME
 ```
-#### 3. Create `tomcat` user
+#### 3. Create a `tomcat` user
 For security, you should not use Tomcat without a unique user. This will make the install of Tomcat on Ubuntu easier. Create a new tomcat group that will run the service:
 ```
 sudo groupadd tomcat
@@ -722,7 +722,7 @@ Now, the next procedure is to create a new tomcat user. Create user members of t
 sudo useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat
 ```
 #### 4. Download `tomcat`
-We need to download the tomcat `tar.gz` file from official website of [Apache Tomcat](https://tomcat.apache.org/download-90.cgi) and copy the link of core _**tar.gz**_ file under the Binary Distributions section. We can use `curl` command or `wget` to download the file. Since, we wouldn't need the file after extraction, so we'll move to the `/tmp` directory of the user.
+We need to download the tomcat `tar.gz` file from official website of [Apache Tomcat](https://tomcat.apache.org/download-90.cgi) and copy the link of core _**tar.gz**_ file under the Binary Distributions section. We can use `curl` command or `wget` to download the file. Since, we wouldn't need the file after extraction, so we'll go to the `/tmp` directory of the user and download it there.
 ```
 cd /tmp
 ```
@@ -748,7 +748,7 @@ Now, give the Tomcat group ownership over the entire installation directory with
 ```
 sudo chgrp -R tomcat /opt/tomcat
 ```
-Next, you need to give the Tomcat user access to the conf directory to view its contents and execute access to the directory itself:
+Next, you need to give the Tomcat user access to the `conf` directory to view its contents and execute access to the directory itself:
 ```
 sudo chmod -R g+r conf
 ```
