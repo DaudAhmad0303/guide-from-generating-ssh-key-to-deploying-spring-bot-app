@@ -524,17 +524,17 @@ sudo update-alternatives --config java
 ```
 copy the path till “jdk-17” (i.e. `/usr/lib/jvm/jdk-17/`). Open Environment variable file using `nano`:
 ```
-sudo nano /etc/environment/
+sudo nano /etc/environment
 ```
 
 Go to the Last line in the file and add:
 ```
-JAVA_HOME=”/usr/lib/jvm/jdk-17/”
+JAVA_HOME="/usr/lib/jvm/jdk-17/"
 ```
 
 Now Load Environment variable using:
 ```
-source /etc/environment/
+source /etc/environment
 ```
 Check `JAVA_HOME` variable:
 ```
