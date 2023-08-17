@@ -615,7 +615,7 @@ For our project, we need to have a working connection with a `postgresql` databa
 ```
 sudo apt install wget ca-certificates;
 sudo apt update;
-apt install postgresql postgresql-contrib;
+sudo apt install postgresql postgresql-contrib;
 
 service postgresql status;
 
@@ -648,6 +648,19 @@ After the new `mydb` database is created, connect to it.
 ```
 \c mydb
 ```
+Additionaly, you can list down all the databases and the user roles using commands, respectively:
+```
+\l
+```
+```
+\du
+```
+Since the default "postgres" user does not have a password, you should set it yourself.
+
+```
+\password postgres
+```
+
 
 ## Running Spring Boot App in `Tmux`
 ### Does the Database is up
@@ -722,12 +735,12 @@ Now, the next procedure is to create a new tomcat user. Create user members of t
 sudo useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat
 ```
 #### 4. Download `tomcat`
-We need to download the tomcat `tar.gz` file from official website of [Apache Tomcat](https://tomcat.apache.org/download-90.cgi) and copy the link of core _**tar.gz**_ file under the Binary Distributions section. We can use `curl` command or `wget` to download the file. Since, we wouldn't need the file after extraction, so we'll go to the `/tmp` directory of the user and download it there.
+We need to download the tomcat `tar.gz` file from official website of [Apache Tomcat](https://tomcat.apache.org/download-10.cgi) and copy the link of core _**tar.gz**_ file under the Binary Distributions section. Here, one thing to mention very importantly that **Spring boot 3** requires at least **JDK17** and **Tomcat 10** due to the package renaming from javax to jakarta. We can use `curl` command or `wget` to download the file. Since, we wouldn't need the file after extraction, so we'll go to the `/tmp` directory of the user and download it there.
 ```
 cd /tmp
 ```
 ```
-curl -O https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.79/bin/apache-tomcat-9.0.79.tar.gz
+curl -O https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.12/bin/apache-tomcat-10.1.12.tar.gz
 ```
 after `curl -O` we can replace the copied url from the _Apache Tomcat_ website.
 
