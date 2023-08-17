@@ -675,6 +675,26 @@ Our Spring Boot Application has started running on the IP address of our server.
 ```
 <IP-address:8080>
 ```
+In case, **`Maven`** is not installed:
+```
+./mvnw package
+```
+then go to the `target/` directory inside the project:
+```
+cd target/
+```
+Then, to list down all `jar` files
+```
+ls *.jar
+```
+And to run `jar` file:
+```
+java -jar <[file name].jar>
+```
+Another way out is running app from project root directory:
+```
+./mvnw spring-boot:run
+```
 
 ---
 
