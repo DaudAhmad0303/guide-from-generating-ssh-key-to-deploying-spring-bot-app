@@ -65,7 +65,7 @@ Jump to a Section
 		- [4. Exporting WAR file for tomcat deployment](#4-exporting-war-file-for-tomcat-deployment)
   	- [Deploy Spring Boot Application in Tomcat](#deploy-spring-boot-application-in-tomcat)
 		- [1. Login to tomcat Manager App](#1-login-to-tomcat-manager-app)
-		- [2. Upload war file and deploy]()
+		- [2. Upload war file and deploy](#2-upload-war-file-and-deploy)
 
 </details>
 
