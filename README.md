@@ -1029,11 +1029,30 @@ This command ensures that the project is built from scratch, by cleaning any pre
 ---
 
 ### Deploy Spring Boot Application in Tomcat
+#### 1. Login to tomcat `Manager App`
+As discussed above, we can login to the tomcat Manager App using credential we've set in previous steps.
+![Screenshot_2023-08-23](https://github.com/DaudAhmad0303/guide-from-generating-ssh-key-to-deploying-spring-bot-app/assets/73556387/13127566-2508-4356-95ca-2e6da6c88df7)
 
+After successfull login into `Manager App`, we would enounter following page:
+![image](https://github.com/DaudAhmad0303/guide-from-generating-ssh-key-to-deploying-spring-bot-app/assets/73556387/e1972387-ea8a-46dc-8b6b-909341cec656)
 
+Now, scroll down to **`WAR file to deploy`** section on same page select `war` file, we've generated in previous step and click on the deploy button. It will take a bit of seconds to deploy. After successful deploy, our application will be listed down under **`Applications`** section as _**web-services**_. Click on it and your application has been deployed.
 
-
-
-
+In main while, when we upload our file from Tomcat Web Interface, it would be uploaded to the following directory and extracted and if it has no errors it would be deployed:
+```
+sudo ls -la /opt/tomcat/webapps
+```
+For the status of our deployed Application, we can check the logs of our applications in following directory logs files:
+```
+sudo ls -la /opt/tomcat/logs
+```
+We would mostly look into the `catlina.out` file for our tomcat application logs:
+```
+sudo cat /opt/tomcat/logs/catalina.out
+```
+Furthermore, our server time is mostly different. So for checking server time and comparing it with ours, we can use following command:
+```
+timedatectl
+```
 
 ----
