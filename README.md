@@ -709,6 +709,7 @@ Another way out is running app from project root directory:
 ./mvnw spring-boot:run
 ```
 
+
 ---
 
 ## Setup `Tomcat` and Deploying Spring Boot App in `Tomcat`
@@ -947,6 +948,89 @@ and you will see following interface:
 ![Screenshot from 2023-08-17 01-21-33](https://github.com/DaudAhmad0303/guide-from-generating-ssh-key-to-deploying-spring-bot-app/assets/73556387/93df8365-718c-4b4a-b3e7-862835ae74f1)
 
 You can Access **Server Status**, **Manager App**, **Host Manager** by entering the `username` and password set in `tomcat-users.xml` file, previously. We'll need to get in `Manager App` to deploy Spring Boot Application.
+
+---
+
+### Amendments in Spring Boot Application to deploy in Tomcat
+
+#### 1. Modify `@SpringBootApplication` Startup class
+The main class annotated with `@SpringBootApplication` needs to be inherited from `SpringBootServletInitializer` class. We also need to _override_ `configure` method. After modification it will be like:
+```
+@SpringBootApplication
+public class MySpringBootApplication extends SpringBootServletInitializer {
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application)
+	{
+		return application.sources(MySpringBootApplication.class);
+	}
+
+	public static void main(String[] args) {
+		SpringApplication.run(MySpringBootApplication.class, args);
+	}
+}
+```
+#### 2. Adjustments in `pom.xml`
+Change the project packaging to `war` type:
+```
+<packaging>war</packaging>
+```
+Add `Spring-boot-tomcat` dependecy in `<dependencies> ... </dependencies>` section.
+```
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-tomcat</artifactId>
+	<scope>provided</scope>
+</dependency>
+```
+Modify the final `WAR` file name by using the `<finalName>` tag in `<build> ... </build>` section to avoid including the version numbers. We're creating a `WAR` file with the name `web-services`:
+```
+<finalName>web-services</finalName>
+```
+#### 3. Changing in `SecurityConfig` for setting up `servletPath`
+Since our `DispatcherServlet` is deployed to a different path, i.e., `/web-services/*`, then instead of Secuirty Config:
+```
+@Bean
+SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http
+        .authorizeHttpRequests((authorize) -> authorize
+            .requestMatchers("/spring-mvc/controller/**")).hasRole("USER")
+            .anyRequest().authenticated()
+        )
+        // ...
+    return http.build();
+}
+```
+It should be like following to match the URL so that we separae out the servlet path for requests to be correctly matched:
+```
+@Bean
+MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
+	return new MvcRequestMatcher.Builder(introspector).servletPath("/web-services");
+}
+
+@Bean
+SecurityFilterChain filterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc) throws Exception {
+    http
+        .authorizeHttpRequests((authorize) -> authorize
+            .requestMatchers(mvc.pattern("/controller/**")).hasRole("USER")
+            .anyRequest().authenticated()
+        )
+        // ...
+    return http.build();
+}
+```
+#### 4. Exporting `WAR` file for tomcat deployment
+Now that, we've made all required changes in our Spring Boot Project, next is to export our project's `war` (Web Archive) file to be deployed on tomcat server. For that, run the following command:
+```
+mvn clean package
+```
+This command ensures that the project is built from scratch, by cleaning any previous build artifacts and then packaging the project's code and resources into `war` file. This `war` file specific to be `web-services.war` can be found in project home directory under `target` directory.
+
+---
+
+### Deploy Spring Boot Application in Tomcat
+
+
 
 
 
