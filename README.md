@@ -825,7 +825,7 @@ ExecStop=/opt/tomcat/bin/shutdown.sh
 [Install]
 WantedBy=multi-user.target
 ```
-You have to replace the `JAVA_HOME` path with the your systems related. In some cases, you need to append `/jre` after the path of `JAVA_HOME`. You can try it out.
+You have to replace the `JAVA_HOME` path with the your systems related. In some cases, you need to append `/jre` after the path of `JAVA_HOME`. You can try it out. Also, if it does not work try removing `Restart=always` from file. After any change in `tomcat.service` file, you need to `reload-demons` and then `restart tomcat`.
 
 For saving this service click `Ctrl+x` then `Shift+y` then Enter.
 
