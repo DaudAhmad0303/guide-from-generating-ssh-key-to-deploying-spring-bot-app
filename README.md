@@ -627,6 +627,13 @@ tmux new -s Session1
 - `Ctrl+B ,` — Rename a panel window
 - `Ctrl+B [` — Switch to scroll view, Press `Q` to exit scrolling.
 
+To attach to a tmux session:
+```
+tmux attach -t <session-name-id>
+```
+Session id can be listed down by `tmux ls`.
+
+
 ## Database Setup
 ### PostgreSQL Installation
 For our project, we need to have a working connection with a `postgresql` database. Here're couple of commands to install postgresql on Ubuntu:
