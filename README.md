@@ -621,6 +621,7 @@ tmux new -s Session1
 - `Ctrl+B C` — Create a new window.
 - `Ctrl+B N` or `P` — Move to the next or previous window.
 - `Ctrl+B 0 (1,2...)` — Move to a specific window by number.
+- `Ctrl+B S` — To list all available tmux sessions and one can switch using arrow keys.
 - `Ctrl+B :` — Enter the command line to type commands. Tab completion is available.
 - `Ctrl+B ?` — View all keybindings. Press `Q` to exit.
 - `Ctrl+B W` — Open a panel to navigate across windows in multiple sessions.
